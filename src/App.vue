@@ -1,15 +1,23 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-    <UserRegist/>
+   <div>
+       <UserRegist/>
+   </div>
+
+   <div>
+      <CommentRegist/>
+   </div>
+
 </template>
 
 <script>
 import UserRegist from './components/UserRegist.vue'
+import CommentRegist from './components/CommentRegist.vue'
 
 export default {
   name: 'App',
   components: {
-     UserRegist,
+     UserRegist, CommentRegist
   }
 }
 </script>

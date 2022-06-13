@@ -1,12 +1,12 @@
 <template>
   <div>
-      <form id="user-form" ref="userform">
+      <form id="user-form" ref="userform" action="">
         <fieldset>
           <legend>사용자 등록</legend>
           <div><input id="username" ref="usrname" type="text" placeholder="이름"></div>
-          <div><input id="age" ref="age" type="number" placeholder="나이"></div>
+          <div><input id="age" ref="age" type="number" min="1"  placeholder="나이"></div>
           <div><input id="married" ref="married" type="checkbox"><label for="married">결혼 여부</label></div>
-          <button type="submit" @click.prevent="regist">등록</button>
+          <button type="submit" id="uBtn" @click.prevent="uRegist">등록</button>
         </fieldset>
       </form>
     </div>
@@ -15,7 +15,7 @@
 <script>
 import { reactive, ref } from '@vue/reactivity';
 export default {
-    name:'ToRegist',
+    name:'ToUserRegist',
     setup(){
         const state = reactive({
 
@@ -26,37 +26,40 @@ export default {
         const age = ref(null)
         const married = ref(null)
 
-        function regist() {
-            async (e) => {
-            e.preventDefault();
-            if (!username) {
-                return alert('이름을 입력하세요');
+        function uRegist() {
+            if (username.vlaue.vlaue=="") {
+                alert('이름을 입력하세요');
+                username.value.focus();
+                return
+
             }
-            if (!age) {
-                return alert('나이를 입력하세요');
+            if (age.value.value=="") {
+                alert('나이를 입력하세요');
+                age.value.focus();
+                return
             }
-            try {
-                await axios.post('/users', { username, age, married });
-                getUser();
-            } catch (err) {
-                console.error(err);
-            }
-            e.target.username.vlaue.value = '';
-            e.target.age.value.value = '';
-            e.target.married.value.checked = false;
 
             userform.value.submit();
         }
 
          
         return{
-            state, userform, username, age, married, regist,
+            state, userform, username, age, married, uRegist,
             }
         }
     }
-}
 </script>
 
 <style>
+#user-form {
+  width: 40%;
+  margin:0 auto;
+}
 
+#username,
+#age,
+#married,
+#uBtn {
+  margin :10px;
+}
 </style>
